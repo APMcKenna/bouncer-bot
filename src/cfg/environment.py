@@ -13,4 +13,4 @@ AUDIT_CHANNEL = os.getenv("DISCORD_AUDIT_CHANNEL_NAME", "managers-log")
 LOGGING_CHANNEL = os.getenv("DISCORD_LOGGING_CHANNEL_NAME", "bot-logs")
 
 # Only set to true for testing, set default to false normally
-KICK_USERS = os.getenv("DISCORD_KICK_USERS", False)
+KICK_USERS = (os.getenv("DISCORD_KICK_USERS", False).lower() == 'true')

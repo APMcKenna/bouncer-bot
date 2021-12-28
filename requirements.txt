@@ -1,2 +1,3 @@
 discord.py==1.7.3
 mysql-connector==2.2.9
+emoji==1.6.1

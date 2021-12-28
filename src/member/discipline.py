@@ -1,5 +1,5 @@
 import datetime
-
+import emoji
 import discord
 
 from datetime import datetime, timedelta
@@ -29,7 +29,6 @@ async def discipline_member(message):
 
     if strike_count >= MAX_STRIKE_COUNT and KICK_USERS is True:
         await kick_member(message, strike_count)
-        # Post audit in managers log
         pass
     else:
         await warn_member(message, strike_count, False)
@@ -85,7 +84,7 @@ async def audit_kick_case(member, strike_count):
 
     i = 0
     for result in results:
-        embed.add_field(name=f"Message #{i}", value=str(result[2]), inline=False)
+        embed.add_field(name=f"Message #{i}", value=emoji.emojize(result[2]), inline=False)
         i += 1
 
     await send_to_audit_channel(embed)
@@ -183,7 +182,7 @@ def log_message(message):
     """
     user_id = message.author.id
     message_time = message.created_at
-    message_content = message.clean_content.encode('utf8')
+    message_content = emoji.demojize(message.clean_content)
 
     sql_statement = {
         'statement': f'INSERT INTO {AUDIT_TABLE_NAME} (UserID, Message_time, Message_content) '
