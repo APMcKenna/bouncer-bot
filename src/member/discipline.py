@@ -84,7 +84,7 @@ async def audit_kick_case(member, strike_count):
 
     i = 0
     for result in results:
-        embed.add_field(name=f"Message #{i}", value=emoji.emojize(result[2]), inline=False)
+        embed.add_field(name=f"Message #{i}", value=emoji.emojize(result[3]), inline=False)
         i += 1
 
     await send_to_audit_channel(embed)
@@ -180,13 +180,14 @@ def log_message(message):
     :param message:
     :return:
     """
+    message_id = message.id
     user_id = message.author.id
     message_time = message.created_at
     message_content = emoji.demojize(message.clean_content)
 
     sql_statement = {
-        'statement': f'INSERT INTO {AUDIT_TABLE_NAME} (UserID, Message_time, Message_content) '
-                     f'VALUES ("{user_id}", "{message_time}", "{message_content}")',
+        'statement': f'INSERT INTO {AUDIT_TABLE_NAME} (MessageID, UserID, Message_time, Message_content) '
+                     f'VALUES ("{message_id}", "{user_id}", "{message_time}", "{message_content}")',
         'args': None
     }
 
